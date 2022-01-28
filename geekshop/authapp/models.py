@@ -14,7 +14,6 @@ class ShopUser(AbstractUser):
     activation_key = models.CharField(max_length=128, blank=True)
     activation_key_expires = models.DateTimeField(default=(now() + timedelta(hours=48)))
 
-
     def is_activation_key_expired(self):
         if now() <= self.activation_key_expires:
             return False
@@ -24,11 +23,11 @@ class ShopUser(AbstractUser):
 
 class ShopUserProfile(models.Model):
     MALE = 'M'
-    FAMALE = 'W'
+    FEMALE = 'W'
 
     GENDER_CHOICES = (
-        (MALE, 'M'),
-        (FAMALE, 'Ж'),
+        (MALE, 'М'),
+        (FEMALE, 'Ж'),
     )
 
     user = models.OneToOneField(ShopUser, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
@@ -43,7 +42,6 @@ class ShopUserProfile(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             ShopUserProfile.objects.create(user=instance)
-
 
     @receiver(post_save, sender=ShopUser)
     def save_user_profile(sender, instance, **kwargs):

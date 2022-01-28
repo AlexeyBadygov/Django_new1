@@ -12,7 +12,6 @@ class ShopUserLoginForm(AuthenticationForm):
         model = ShopUser
         fields = ('username', 'password')
 
-
     def __init__(self, *args, **kwargs):
         super(ShopUserLoginForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -24,7 +23,6 @@ class ShopUserRegisterForm(UserCreationForm):
         model = ShopUser
         fields = ('username', 'first_name', 'password1', 'password2', 'email', 'age', 'avatar')
 
-
     def __init__(self, *args, **kwargs):
         super(ShopUserRegisterForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -33,9 +31,7 @@ class ShopUserRegisterForm(UserCreationForm):
     def clean_age(self):
         data = self.cleaned_data['age']
         if data < 18:
-            raise forms.ValidationError('Вы слишком молоды')
-        if len('age') > 3:
-            raise forms.ValidationError("Проверьте введенный возраст")
+            raise forms.ValidationError("Вы слишком молоды!")
         return data
 
     def save(self):
@@ -62,12 +58,18 @@ class ShopUserEditForm(UserChangeForm):
             if field_name == 'password':
                 field.widget = forms.HiddenInput()
 
+    def clean_age(self):
+        data = self.cleaned_data['age']
+        if data < 18:
+            raise forms.ValidationError("Вы слишком молоды!")
+
+        return data
+
 
 class ShopUserProfileEditForm(forms.ModelForm):
     class Meta:
         model = ShopUserProfile
         fields = ('tagline', 'about_me', 'gender')
-
 
     def __init__(self, *args, **kwargs):
         super(ShopUserProfileEditForm, self).__init__(*args, **kwargs)

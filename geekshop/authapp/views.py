@@ -1,13 +1,13 @@
+from django.conf import settings
+from django.contrib import auth
 from django.core.mail import send_mail
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.contrib import auth
 from django.urls import reverse
 
 from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm, ShopUserProfileEditForm
 from authapp.models import ShopUser
-from geekshop import settings
 
 
 def login(request):
@@ -35,7 +35,7 @@ def login(request):
         'next': next,
     }
 
-    return render(request,'authapp/login.html', context)
+    return render(request, 'authapp/login.html', context)
 
 
 def logout(request):
@@ -44,7 +44,7 @@ def logout(request):
 
 
 def register(request):
-    title = 'Регистрация'
+    title = 'регистрация'
 
     if request.method == 'POST':
         register_form = ShopUserRegisterForm(request.POST, request.FILES)
@@ -52,9 +52,10 @@ def register(request):
         if register_form.is_valid():
             user = register_form.save()
             if send_verify_mail(user):
-                print('Сообщение отправлено')
+                print("сообщение отправлено")
             else:
-                print('ERROR отправки почты')
+                print('ERROR: отправки почты')
+
             return HttpResponseRedirect(reverse('auth:login'))
     else:
         register_form = ShopUserRegisterForm()
@@ -64,8 +65,7 @@ def register(request):
         'register_form': register_form,
     }
 
-    return render(request,'authapp/register.html', context)
-
+    return render(request, 'authapp/register.html', context)
 
 
 @transaction.atomic
@@ -86,7 +86,7 @@ def edit(request):
     context = {
         'title': title,
         'edit_form': edit_form,
-        'profile_form': profile_form,
+        'profile_from': profile_form,
     }
 
     return render(request, 'authapp/edit.html', context)
