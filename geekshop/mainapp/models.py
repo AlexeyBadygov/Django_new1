@@ -1,33 +1,18 @@
 from django.db import models
 
+
 class ProductCategory(models.Model):
-    name = models.CharField(
-        verbose_name='имя продукта',
-        max_length=64,
-        unique=True,
-    )
-    description = models.TextField(
-        verbose_name='Описание',
-        blank=True,
-    )
+    name = models.CharField(verbose_name='имя', max_length=64, unique=True)
+    description = models.TextField(verbose_name='описание', blank=True)
 
-    created = models.DateTimeField(
-        auto_now_add=True,
-    )
-    updated = models.DateTimeField(
-        auto_now=True,
-    )
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
-    is_active = models.BooleanField(
-        default=True,
-    )
-    # models.DecimalField(max_digits=6, decimal_places=2)
-    # models.IntegerField()
-    # models.PositiveIntegerField()
-    # is_delete = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     category = models.ForeignKey(
@@ -48,7 +33,7 @@ class Product(models.Model):
         blank=True,
     )
     description = models.TextField(
-        verbose_name='Описание',
+        verbose_name='описание',
         blank=True,
     )
     price = models.DecimalField(
@@ -62,14 +47,7 @@ class Product(models.Model):
         default=0,
     )
 
-    is_active = models.BooleanField(
-        default=True,
-    )
-
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.name} ({self.category.name})'
-
-
-class Media:
-    pass

@@ -74,7 +74,7 @@ window.onload = function () {
         order_total_quantity = 0;
         order_total_price = 0;
 
-        for (let i=0; i < total_forms; i++){
+        for (let i=0; i < total_forms; i++) {
             order_total_quantity += quantity_arr[i];
             order_total_price += quantity_arr[i] * price_arr[i];
         }
@@ -99,7 +99,7 @@ window.onload = function () {
                             quantity_arr[orderitem_num] = 0;
                         }
                         let price_html = '<span>' + data.price.toString().replace('.', ',') + '</span> руб';
-                        let current_tr = $('.order_form table').find('tr:eq(' + (orderitem_num +1) + ')');
+                        let current_tr = $('.order_form table').find('tr:eq(' + (orderitem_num + 1) + ')');
                         current_tr.find('td:eq(2)').html(price_html);
 
                         if(isNaN(current_tr.find('input[type="number"]').val())) {

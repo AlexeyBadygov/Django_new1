@@ -21,4 +21,3 @@ def contacts(request):
         'title': title,
     }
     return render(request, 'geekshop/contacts.html', context)
-#

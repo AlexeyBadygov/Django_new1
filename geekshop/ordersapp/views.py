@@ -15,6 +15,8 @@ from ordersapp.models import Order, OrderItem
 
 def is_ajax(self):
     return self.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
+# ф-ция для джанго 4.0
+
 
 
 class OrderList(ListView):
